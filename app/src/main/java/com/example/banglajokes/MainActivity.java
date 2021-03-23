@@ -29,10 +29,10 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener {
 
+    private DatabaseAccess dbAccess;
+
     RecyclerView recyclerView;
-
-     List<ModelCategory> categories;
-
+     List<JokesModel> categories;
      AdapterCatergory adapterCatergory ;
 
 
@@ -61,30 +61,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         categories = new ArrayList<>();
 
-        categories.add(new ModelCategory("প্রেমিক-প্রেমিকা জোকস"));
-        categories.add(new ModelCategory("শিক্ষনীয় জোকস"));
-        categories.add(new ModelCategory("বলদ জোকস"));
-        categories.add(new ModelCategory("বাবা-ছেলে জোকস"));
-        categories.add(new ModelCategory("ব্বামী-স্ত্রী জোকস"));
-        categories.add(new ModelCategory("দাদু-নাতি জোকস"));
-        categories.add(new ModelCategory("ছাত্র-শিক্ষক জোকস"));
-        categories.add(new ModelCategory("কৃপণ লোক জোকস"));
-        categories.add(new ModelCategory("প্রাপ্ত বয়স্ক জোকস"));
-        categories.add(new ModelCategory("পুলিশ-অপরাধী জোকস"));
-        categories.add(new ModelCategory("A"));
-        categories.add(new ModelCategory("B"));
-        categories.add(new ModelCategory("C"));
-        categories.add(new ModelCategory("D"));
-        categories.add(new ModelCategory("E"));
-        categories.add(new ModelCategory("F"));
-        categories.add(new ModelCategory("G"));
-        categories.add(new ModelCategory("H"));
-        categories.add(new ModelCategory("I"));
-        categories.add(new ModelCategory("J"));
-        categories.add(new ModelCategory("K"));
+        dbAccess = new DatabaseAccess(this);
+        categories =dbAccess.getJokesList();
 
         adapterCatergory = new AdapterCatergory(getApplicationContext(),categories);
-
         recyclerView.setAdapter(adapterCatergory);
 
     }
@@ -163,11 +143,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        newText = newText.toLowerCase();
-        List<ModelCategory> newList = new ArrayList();
 
-        for (ModelCategory catergoryList : this.categories) {
-            String cat = catergoryList.getCategory().toLowerCase();
+        newText = newText.toLowerCase();
+        List<JokesModel> newList = new ArrayList();
+
+        for (JokesModel catergoryList : this.categories) {
+            String cat = catergoryList.getName().toLowerCase();
 
             if (cat.contains(newText)) {
                 newList.add(catergoryList);

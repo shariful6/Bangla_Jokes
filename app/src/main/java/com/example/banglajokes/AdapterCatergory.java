@@ -17,12 +17,15 @@ import java.util.List;
 public class AdapterCatergory extends RecyclerView.Adapter<AdapterCatergory.Myholder> {
 
     Context context;
-    List<ModelCategory> categoryList;
+    List<JokesModel> categoryList;
 
-    public AdapterCatergory(Context context, List<ModelCategory> categoryList) {
+    public AdapterCatergory(Context context, List<JokesModel> categoryList) {
         this.context = context;
         this.categoryList = categoryList;
     }
+
+
+
 
     @Override
     public Myholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -34,17 +37,18 @@ public class AdapterCatergory extends RecyclerView.Adapter<AdapterCatergory.Myho
 
     @Override
     public void onBindViewHolder(@NonNull Myholder holder, int position) {
-         String categoryName = categoryList.get(position).getCategory();
+         int id = categoryList.get(position).getId();
+         String categoryName = categoryList.get(position).getName();
          holder.categorynameTv.setText(categoryName);
 
          holder.itemView.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 String name= categoryList.get(position).getCategory();
-                 Toast.makeText(context, "You Click: "+name, Toast.LENGTH_SHORT).show();
 
                  Intent intent = new Intent(AdapterCatergory.this.context,JokesActivity.class);
                  intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                 intent.putExtra("tag",id);
+                 intent.putExtra("catName",categoryName);
                  AdapterCatergory.this.context.startActivity(intent);
              }
          });
@@ -68,11 +72,13 @@ public class AdapterCatergory extends RecyclerView.Adapter<AdapterCatergory.Myho
         }
     }
 
-    public void setFilter(List<ModelCategory> newList) {
+    public void setFilter(List<JokesModel> newList) {
         this.categoryList = new ArrayList();
         this.categoryList.addAll(newList);
         notifyDataSetChanged();
     }
+
+
 
 
 }
