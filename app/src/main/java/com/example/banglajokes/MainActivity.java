@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         dbAccess = new DatabaseAccess(this);
         categories =dbAccess.getJokesList();
 
+
         adapterCatergory = new AdapterCatergory(getApplicationContext(),categories);
         recyclerView.setAdapter(adapterCatergory);
 
@@ -81,6 +82,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id= item.getItemId();
+        if (id==R.id.fav_menu){
+            Intent intent = new Intent(MainActivity.this, FavouriteActivity.class);
+            startActivity(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
+
+    }
 
     //Navigation drawer section
     @Override

@@ -38,6 +38,8 @@ public class JokesActivity extends AppCompatActivity {
 
         dbAccess = new DatabaseAccess(this);
         jokesList =dbAccess.getJokesDetails(tag); //ok
+
+
         adapterJokes = new AdapterJokes(JokesActivity.this,jokesList);
         recyclerView.setAdapter(adapterJokes);
 

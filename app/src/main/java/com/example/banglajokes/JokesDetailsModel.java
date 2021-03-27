@@ -1,6 +1,7 @@
 package com.example.banglajokes;
 
 public class JokesDetailsModel {
+
     String id,tag,jokes;
 
     public JokesDetailsModel() {

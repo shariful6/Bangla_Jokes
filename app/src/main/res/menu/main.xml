@@ -7,4 +7,9 @@
         android:title="Search"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/fav_menu"
+        android:title="Favourite Jokes"
+        />
 </menu>
